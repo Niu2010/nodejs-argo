@@ -22,6 +22,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      # 删掉了之前转换小写的复杂步骤，直接登录
       - name: Log in to GitHub Container Registry
         uses: docker/login-action@v3
         with:
@@ -38,8 +39,9 @@ jobs:
           context: .
           push: true
           platforms: linux/amd64,linux/arm64
+          # 这里直接硬编码写死成你纯小写的镜像路径
           tags: |
-            ghcr.io/${{ niu2010 }}/nodejs:latest
+            ghcr.io/niu2010/nodejs:latest
           labels: |
             org.opencontainers.image.source=https://github.com/${{ github.repository }}
             org.opencontainers.image.description=HTTP Server
